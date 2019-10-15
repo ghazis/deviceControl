@@ -9,7 +9,12 @@ class App extends React.Component {
     return (
       <div>
         <div className="title">Device Control</div>
-         <button onClick={() => {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>{this.props.appState.button_toggled}</button>
+         <div className="button-layout">
+          <button className="button" onClick={() =>
+            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
+            {this.props.appState.button_toggled}
+          </button>
+        </div>
       </div>
     );
   }
