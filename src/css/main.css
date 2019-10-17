@@ -1,4 +1,5 @@
 body{
+   color: #e0ddc3;
    background-color: #2e404c;
    font-family: 'Courgette', cursive;
 }
@@ -7,20 +8,25 @@ body{
 
 @media (min-device-width: 1224px) {
    .title{
-      color: #e0ddc3;
       text-align:center;
       padding-top:60px;
       font-size:40px;
    }
+   .padding{
+      padding-top:40px;
+   }
+   .deviceHeader{
+      font-size: 20px;
+   }
    .button-layout{
       text-align:center;
-      padding-top:80px;
+      margin-top:60px
    }
    .button{
       width:120px;
       height:50px;
+      font-size:18px;
       color: #e0ddc3;
-      font-size:20px;
       border-color: grey;
       border-width:1px;
       border-radius:30px;
@@ -31,20 +37,25 @@ body{
 
 @media (max-device-width: 1224px) {
    .title{
-      color: #e0ddc3;
       text-align:center;
       padding-top:60px;
       font-size:100px;
    }
+   .padding{
+      padding-top:20px;
+   }
+   .deviceHeader{
+      font-size: 46px;
+   }
    .button-layout{
       text-align:center;
-      padding-top:200px;
+      margin-top:140px
    }
    .button{
       width:400px;
       height:160px;
-      color: #e0ddc3;
       font-size:50px;
+      color: #e0ddc3;
       border-color: grey;
       border-width:1px;
       border-radius:80px;

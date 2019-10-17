@@ -9,7 +9,22 @@ class App extends React.Component {
     return (
       <div>
         <div className="title">Device Control</div>
+         <div className="padding button-layout">
+          <p className="deviceHeader">Living Room Lights</p>
+          <button className="button" onClick={() =>
+            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
+            {this.props.appState.button_toggled}
+          </button>
+        </div>
          <div className="button-layout">
+          <p className="deviceHeader">Hallway Lights</p>
+          <button className="button" onClick={() =>
+            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
+            {this.props.appState.button_toggled}
+          </button>
+        </div>
+         <div className="button-layout">
+          <p className="deviceHeader">Bedroom Lights</p>
           <button className="button" onClick={() =>
             {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
             {this.props.appState.button_toggled}
