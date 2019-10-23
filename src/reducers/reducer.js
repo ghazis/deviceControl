@@ -1,15 +1,25 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
-   button_toggled: "Off"
+   bedroomState: false,
+   diningState: false,
+   hallwayState: false,
+   kitchenState: false,
+   livingState: false,
+   dataLoaded: false
 }
 
 export function appState(state = initialState, action) {
    switch (action.type) {
-      case 'BUTTON_TOGGLED':
+      case 'SET_STATES':
+         return {
+            ...action.newStates,
+               dataLoaded: true
+         }
+      case 'SET_STATE':
          return {
             ...state,
-               button_toggled: action.button_toggled
+               [action.stateType]: action.newState
          }
       default:
          return state;

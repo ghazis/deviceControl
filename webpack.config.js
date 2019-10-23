@@ -2,7 +2,7 @@ var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-   entry: './src/index.js',
+   entry: ['./src/config.js', './src/index.js'],
    mode: 'development',
    performance: { hints: process.env.NODE_ENV === 'production' ? "warning" : false },
    output: {

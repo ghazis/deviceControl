@@ -1,49 +1,84 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { determineButtonToggled } from './actions/actions';
+import { retrieveData, toggleState } from './actions/actions';
 
 class App extends React.Component {
 
+  componentDidMount() {
+    this.props.retrieveData();
+  }
+
+  convertBoolToName(bool) {
+    var name = bool ? "On" : "Off";
+    return name
+  }
+
   render() {
-    return (
-      <div>
-        <div className="title">Device Control</div>
-         <div className="padding button-layout">
-          <p className="deviceHeader">Living Room Lights</p>
-          <button className="button" onClick={() =>
-            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
-            {this.props.appState.button_toggled}
-          </button>
+    if (this.props.dataLoaded)
+      return (
+        <div>
+          <div className="title">Device Control</div>
+            <div className="flex-layout">
+              <div className="button-layout">
+                <div className="buttonHeader">Bedroom Lights</div>
+                <button className="button" onClick={() =>
+                  {this.props.toggleState('bedroomState', this.props.bedroomState)}}>
+                  {this.convertBoolToName(this.props.bedroomState)}
+                </button>
+              </div>
+              <div className="button-layout">
+                <div className="buttonHeader">Dining Room Lights</div>
+                <button className="button" onClick={() =>
+                  {this.props.toggleState('diningState', this.props.diningState)}}>
+                  {this.convertBoolToName(this.props.diningState)}
+                </button>
+              </div>
+            </div>
+            <div className="flex-layout">
+              <div className="button-layout">
+                <div className="buttonHeader">Hallway Lights</div>
+                <button className="button" onClick={() =>
+                  {this.props.toggleState('hallwayState', this.props.hallwayState)}}>
+                  {this.convertBoolToName(this.props.hallwayState)}
+                </button>
+              </div>
+              <div className="button-layout">
+                <div className="buttonHeader">Kitchen Lights</div>
+                <button className="button" onClick={() =>
+                  {this.props.toggleState('kitchenState', this.props.kitchenState)}}>
+                  {this.convertBoolToName(this.props.kitchenState)}
+                </button>
+              </div>
+              <div className="button-layout">
+                <div className="buttonHeader">Living Room Lights</div>
+                <button className="button" onClick={() =>
+                  {this.props.toggleState('livingState', this.props.livingState)}}>
+                  {this.convertBoolToName(this.props.livingState)}
+                </button>
+              </div>
+            </div>
         </div>
-         <div className="button-layout">
-          <p className="deviceHeader">Hallway Lights</p>
-          <button className="button" onClick={() =>
-            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
-            {this.props.appState.button_toggled}
-          </button>
-        </div>
-         <div className="button-layout">
-          <p className="deviceHeader">Bedroom Lights</p>
-          <button className="button" onClick={() =>
-            {this.props.determineButtonToggled(this.props.appState.button_toggled)}}>
-            {this.props.appState.button_toggled}
-          </button>
-        </div>
-      </div>
-    );
+      );
+    return null;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    appState: state.appState
+    dataLoaded: state.appState.dataLoaded,
+    bedroomState: state.appState.bedroomState,
+    diningState: state.appState.diningState,
+    hallwayState: state.appState.hallwayState,
+    kitchenState: state.appState.kitchenState,
+    livingState: state.appState.livingState
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    determineButtonToggled: (button_toggled) => dispatch(determineButtonToggled(button_toggled))
+    retrieveData: () => dispatch(retrieveData()),
+    toggleState: (stateType, buttonState) => dispatch(toggleState(stateType, buttonState))
   };
 }
 
