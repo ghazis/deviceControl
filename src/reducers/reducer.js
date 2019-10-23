@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
+   allState: false,
    bedroomState: false,
    diningState: false,
    hallwayState: false,

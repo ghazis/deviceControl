@@ -20,6 +20,7 @@ export function retrieveData() {
    return dispatch => {
       firebase.database().ref('/').on('value', function(snapshot) {
          var newStates = {
+            allState: snapshot.val().allState,
             bedroomState: snapshot.val().bedroomState,
             diningState: snapshot.val().diningState,
             hallwayState: snapshot.val().hallwayState,

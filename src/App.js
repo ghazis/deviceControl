@@ -19,43 +19,34 @@ class App extends React.Component {
       return (
         <div>
           <div className="title">Device Control</div>
-            <div className="flex-layout">
-              <div className="button-layout">
-                <div className="buttonHeader">Bedroom Lights</div>
-                <button className="button" onClick={() =>
-                  {this.props.toggleState('bedroomState', this.props.bedroomState)}}>
-                  {this.convertBoolToName(this.props.bedroomState)}
-                </button>
+            <div className="widget-layout">
+              <div className="widget widgetTeal" onClick={() =>
+                  {this.props.toggleState('allState', this.props.allState)}}>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
               </div>
-              <div className="button-layout">
-                <div className="buttonHeader">Dining Room Lights</div>
-                <button className="button" onClick={() =>
-                  {this.props.toggleState('diningState', this.props.diningState)}}>
-                  {this.convertBoolToName(this.props.diningState)}
-                </button>
+              <div className="widget widgetGreen" onClick={() =>
+                  {this.props.toggleState('bedroomState', this.props.bedroomState)}}>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
               </div>
             </div>
-            <div className="flex-layout">
-              <div className="button-layout">
-                <div className="buttonHeader">Hallway Lights</div>
-                <button className="button" onClick={() =>
-                  {this.props.toggleState('hallwayState', this.props.hallwayState)}}>
-                  {this.convertBoolToName(this.props.hallwayState)}
-                </button>
-              </div>
-              <div className="button-layout">
-                <div className="buttonHeader">Kitchen Lights</div>
-                <button className="button" onClick={() =>
+            <div className="widget-layout">
+              <div className="widget widgetPurple" onClick={() =>
                   {this.props.toggleState('kitchenState', this.props.kitchenState)}}>
-                  {this.convertBoolToName(this.props.kitchenState)}
-                </button>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
               </div>
-              <div className="button-layout">
-                <div className="buttonHeader">Living Room Lights</div>
-                <button className="button" onClick={() =>
+              <div className="widget widgetYellow" onClick={() =>
+                  {this.props.toggleState('diningState', this.props.diningState)}}>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
+              </div>
+            </div>
+            <div className="widget-layout">
+              <div className="widget widgetGrey" onClick={() =>
                   {this.props.toggleState('livingState', this.props.livingState)}}>
-                  {this.convertBoolToName(this.props.livingState)}
-                </button>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
+              </div>
+              <div className="widget widgetBlue" onClick={() =>
+                  {this.props.toggleState('hallwayState', this.props.hallwayState)}}>
+                <div className="deviceImg"><img className="deviceImgSize" src={require('./images/lb.png')} /></div>
               </div>
             </div>
         </div>
@@ -66,12 +57,13 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    dataLoaded: state.appState.dataLoaded,
+    allState: state.appState.allState,
     bedroomState: state.appState.bedroomState,
     diningState: state.appState.diningState,
     hallwayState: state.appState.hallwayState,
     kitchenState: state.appState.kitchenState,
-    livingState: state.appState.livingState
+    livingState: state.appState.livingState,
+    dataLoaded: state.appState.dataLoaded
   };
 }
 
