@@ -24,28 +24,78 @@ body{
    .widgetTeal{
       background-color:#32AFC5;
    }
+   .widgetTeal:hover {
+      cursor:pointer;
+      background-color: #2990a0;
+   }
+   .widgetTeal:active {
+      transform: translateY(4px);
+   }
    .widgetGreen{
       background-color:#AFCC12;
+   }
+   .widgetGreen:hover {
+      cursor:pointer;
+      background-color: #8ea50d;
+   }
+   .widgetGreen:active {
+      transform: translateY(4px);
    }
    .widgetPurple{
       background-color:#9966E9;
    }
+   .widgetPurple:hover {
+      cursor:pointer;
+      background-color: #7f58c4;
+   }
+   .widgetPurple:active {
+      transform: translateY(4px);
+   }
    .widgetYellow{
       background-color:#E9B11C;
+   }
+   .widgetYellow:hover {
+      cursor:pointer;
+      background-color: #bc8e18;
+   }
+   .widgetYellow:active {
+      transform: translateY(4px);
    }
    .widgetGrey{
       background-color:#595758;
    }
+   .widgetGrey:hover {
+      cursor:pointer;
+      background-color: #494949;
+   }
+   .widgetGrey:active {
+      transform: translateY(4px);
+   }
    .widgetBlue{
       background-color:#0E77B5;
    }
+   .widgetBlue:hover {
+      cursor:pointer;
+      background-color: #0c6396;
+   }
+   .widgetBlue:active {
+      transform: translateY(4px);
+   }
    .deviceImg{
       text-align:center;
-      margin-top:40px;
+      margin-top:30px;
    }
    .deviceImgSize{
       width:120px;
       height:120px;
+   }
+   .subheader{
+      font-size:20px;
+      margin-top:10px;
+   }
+   .subheader-long{
+      font-size:20px;
+      margin-top:10px;
    }
 }
 
@@ -68,23 +118,52 @@ body{
    .widgetTeal{
       background-color:#32AFC5;
    }
+   .widgetTeal:active {
+      transform: translateY(6px);
+   }
    .widgetGreen{
       background-color:#AFCC12;
+   }
+   .widgetGreen:active {
+      transform: translateY(4px);
    }
    .widgetPurple{
       background-color:#9966E9;
    }
+   .widgetPurple:active {
+      transform: translateY(4px);
+   }
    .widgetYellow{
       background-color:#E9B11C;
+   }
+   .widgetYellow:active {
+      transform: translateY(4px);
    }
    .widgetGrey{
       background-color:#595758;
    }
+   .widgetGrey:active {
+      transform: translateY(4px);
+   }
    .widgetBlue{
       background-color:#0E77B5;
    }
+   .widgetBlue:active {
+      transform: translateY(4px);
+   }
    .deviceImg{
       text-align:center;
-      margin-top:100px;
+      margin-top:40px;
+   }
+   .deviceImgSize{
+      width:280px;
+      height:280px;
+   }
+   .subheader{
+      font-size:60px;
+      margin-top:60px;
+   }
+   .subheader-long{
+      font-size:60px;
    }
 }
