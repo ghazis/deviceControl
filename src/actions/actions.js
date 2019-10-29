@@ -1,6 +1,13 @@
 import firebase from 'firebase/app';
 import "firebase/database";
 
+function setUserLoggedIn(userLoggedIn) {
+   return {
+      type: 'SET_USER_LOGGED_IN',
+      userLoggedIn: userLoggedIn
+   };
+}
+
 function setStates(newStates) {
    return {
       type: 'SET_STATES',
@@ -36,5 +43,24 @@ export function toggleState(stateType, currentState) {
    return dispatch => {
       dispatch(setState(stateType, !currentState));
       firebase.database().ref(stateType).set(!currentState);
+   }
+}
+
+
+export function signIn() {
+ var provider = new firebase.auth.GoogleAuthProvider();
+
+ firebase.auth().signInWithRedirect(provider);
+}
+
+export function watchForAuth() {
+   return dispatch => {
+      firebase.auth().onAuthStateChanged(function(user) {
+       if (user) {
+         if (user.email=='ashhad.ghazi@gmail.com' || user.email=='qurratulann.butt@gmail.com') {
+            dispatch(setUserLoggedIn(true));
+         }
+       }
+      });
    }
 }

@@ -1,12 +1,16 @@
 import React from 'react';
+import firebase from 'firebase/app';
 import { connect } from 'react-redux';
 
-import { retrieveData, toggleState } from './actions/actions';
+import "firebase/auth";
+
+import { retrieveData, toggleState, signIn, watchForAuth } from './actions/actions';
 
 class App extends React.Component {
 
   componentDidMount() {
     this.props.retrieveData();
+    this.props.watchForAuth();
   }
 
   convertBoolToName(bool) {
@@ -15,8 +19,8 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.props.dataLoaded)
-      return (
+    if (this.props.userLoggedIn && this.props.dataLoaded)
+      this.body = (
         <div>
           <div className="title">Device Control</div>
             <div className="widget-layout">
@@ -74,26 +78,37 @@ class App extends React.Component {
               </div>
             </div>
         </div>
-      );
-    return null;
+      )
+    else if (this.props.dataLoaded)
+      this.body = (
+        <div>
+          <div className="title">Device Control</div>
+          <div className="sign-but-layout"><button className="sign-in-button" onClick={signIn}>Sign In</button></div>
+        </div>
+      )
+    else
+      this.body = null;
+    return this.body;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    allState: state.appState.allState,
-    bedroomState: state.appState.bedroomState,
-    diningState: state.appState.diningState,
-    hallwayState: state.appState.hallwayState,
-    kitchenState: state.appState.kitchenState,
-    livingState: state.appState.livingState,
-    dataLoaded: state.appState.dataLoaded
+    allState: state.deviceState.allState,
+    bedroomState: state.deviceState.bedroomState,
+    diningState: state.deviceState.diningState,
+    hallwayState: state.deviceState.hallwayState,
+    kitchenState: state.deviceState.kitchenState,
+    livingState: state.deviceState.livingState,
+    dataLoaded: state.appState.dataLoaded,
+    userLoggedIn: state.appState.userLoggedIn
   };
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     retrieveData: () => dispatch(retrieveData()),
+    watchForAuth: () => dispatch(watchForAuth()),
     toggleState: (stateType, buttonState) => dispatch(toggleState(stateType, buttonState))
   };
 }

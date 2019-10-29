@@ -10,6 +10,20 @@ body{
       padding-top:60px;
       font-size:40px;
    }
+   .sign-but-layout{
+      margin-top:200px;
+      text-align:center;
+   }
+   .sign-in-button{
+      width:100px;
+      height:40px;
+      color:white;
+      font-size:20px;
+      border: none;
+      border: 1px solid white;
+      border-radius:3px;
+      background-color:transparent;
+   }
    .widget-layout{
       display:flex;
       justify-content:space-around;
@@ -104,6 +118,20 @@ body{
       text-align:center;
       padding-top:20px;
       font-size:100px;
+   }
+   .sign-but-layout{
+      margin-top:400px;
+      text-align:center;
+   }
+   .sign-in-button{
+      width:300px;
+      height:100px;
+      color:white;
+      font-size:48px;
+      border:none;
+      border: 1px solid white;
+      border-radius:3px;
+      background-color:transparent;
    }
    .widget-layout{
       display:flex;

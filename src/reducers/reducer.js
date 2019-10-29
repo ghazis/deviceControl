@@ -1,32 +1,51 @@
 import { combineReducers } from 'redux';
 
-const initialState = {
+const initialAppState = {
+   dataLoaded: false,
+   userLoggedIn: false
+}
+
+const initialDeviceState = {
    allState: false,
    bedroomState: false,
    diningState: false,
    hallwayState: false,
    kitchenState: false,
-   livingState: false,
-   dataLoaded: false
+   livingState: false
 }
 
-export function appState(state = initialState, action) {
+export function appState(state = initialAppState, action) {
    switch (action.type) {
-      case 'SET_STATES':
-         return {
-            ...action.newStates,
-               dataLoaded: true
-         }
-      case 'SET_STATE':
+      case 'SET_USER_LOGGED_IN':
          return {
             ...state,
-               [action.stateType]: action.newState
+               userLoggedIn: action.userLoggedIn
+         }
+      case 'SET_STATES':
+         return {
+            ...state,
+               dataLoaded: true
          }
       default:
          return state;
    }
 }
 
+export function deviceState(state = initialDeviceState, action) {
+   switch (action.type) {
+      case 'SET_STATE':
+         return {
+            ...state,
+               [action.stateType]: action.newState
+         }
+      case 'SET_STATES':
+         return action.newStates
+      default:
+         return state;
+   }
+}
+
 export default combineReducers({
-   appState
+   appState,
+   deviceState
 })
