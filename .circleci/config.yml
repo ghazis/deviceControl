@@ -1,0 +1,67 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.9.4
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Installing Dependencies
+          command: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Running build
+          command: npm run build
+      - store_artifacts:
+          path: dist
+      - run:
+          name: Generating Build Checksum
+          command: |
+            find ./src/ -type f -print0 | xargs -0 sha256sum > build_id.txt
+            sort -o build_id.txt build_id.txt
+      - save_cache:
+          key: v1-dist-master-{{ checksum "build_id.txt" }}
+          paths:
+            - dist
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - checkout
+      - run:
+          name: Retrieving Build Checksum
+          command: |
+            find ./src/ -type f -print0 | xargs -0 sha256sum > build_id.txt
+            sort -o build_id.txt build_id.txt
+      - add_ssh_keys:
+          fingerprints:
+            - '08:ab:80:12:c6:57:11:95:8a:65:17:a3:db:19:9a:78'
+      - restore_cache:
+          key: v1-dist-master-{{ checksum "build_id.txt" }}
+      - run:
+          name: Deploying Build
+          command: |
+            echo -e "Deploying Distributables Below:\n\n"
+            rsync -avh dist/. pi@ashhadspi.com:/home/pi/docker/masterPi/www/deviceControl/
+            ssh pi@ashhadspi.com /home/pi/republish_masterpi.sh
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+      - deploy:
+          filters:
+            branches:
+              only: master
