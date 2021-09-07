@@ -1,5 +1,11 @@
-import firebase from 'firebase/app';
-import "firebase/database";
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithRedirect } from "firebase/auth";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+
+import { deviceControlConfig, commandCenterConfig } from '../config';
+
+const auth = getAuth();
+const deviceControlDB = getDatabase(deviceControlConfig);
+const commandCenterDB = getDatabase(commandCenterConfig);
 
 function setUserLoggedIn(userLoggedIn) {
    return {
@@ -8,16 +14,23 @@ function setUserLoggedIn(userLoggedIn) {
    };
 }
 
-function setStates(newStates) {
+function setCmdStates(newStates) {
    return {
-      type: 'SET_STATES',
+      type: 'SET_CMD_STATES',
       newStates: newStates
    };
 }
 
-export function setState(stateType, newState) {
+function setDeviceStates(newStates) {
    return {
-      type: 'SET_STATE',
+      type: 'SET_DEVICE_STATES',
+      newStates: newStates
+   };
+}
+
+export function setDeviceState(stateType, newState) {
+   return {
+      type: 'SET_DEVICE_STATE',
       stateType: stateType,
       newState: newState
    };
@@ -25,37 +38,46 @@ export function setState(stateType, newState) {
 
 export function retrieveData() {
    return dispatch => {
-      firebase.database().ref('/').on('value', function(snapshot) {
-         var newStates = {
-            allState: snapshot.val().allState,
-            bedroomState: snapshot.val().bedroomState,
-            diningState: snapshot.val().diningState,
-            hallwayState: snapshot.val().hallwayState,
-            kitchenState: snapshot.val().kitchenState,
-            livingState: snapshot.val().livingState
-         }
-         dispatch(setStates(newStates));
+      onValue(ref(commandCenterDB, '/'), (snapshot) => {
+         dispatch(setCmdStates(snapshot.val()))
+      });
+
+      onValue(ref(deviceControlDB, '/'), (snapshot) => {
+         dispatch(setDeviceStates(snapshot.val()));
       });
    }
 }
 
 export function toggleState(stateType, currentState) {
    return dispatch => {
-      dispatch(setState(stateType, !currentState));
-      firebase.database().ref(stateType).set(!currentState);
+      dispatch(setDeviceState(stateType, !currentState));
+      set(ref(deviceControlDB, stateType), !currentState)
+   }
+}
+
+
+export const speak = (speech) => {
+   set(ref(commandCenterDB, 'tts/args'), speech);
+   set(ref(commandCenterDB, 'tts/run'), 1);
+}
+
+
+export const generatePortfolio = () => {
+   return dispatch => {
+      set(ref(commandCenterDB, 'etrade/run'), 1);
    }
 }
 
 
 export function signIn() {
- var provider = new firebase.auth.GoogleAuthProvider();
+   const provider = new GoogleAuthProvider();
 
- firebase.auth().signInWithRedirect(provider);
+   return signInWithRedirect(auth, provider);
 }
 
 export function watchForAuth() {
    return dispatch => {
-      firebase.auth().onAuthStateChanged(function(user) {
+      onAuthStateChanged(auth, (user) => {
        if (user) {
          if (user.email=='ashhad.ghazi@gmail.com' || user.email=='qurratulann.butt@gmail.com') {
             dispatch(setUserLoggedIn(true));
